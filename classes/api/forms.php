@@ -120,12 +120,23 @@ class Caldera_Forms_API_Forms extends  Caldera_Forms_API_CRUD {
      * @return Caldera_Forms_API_Error|Caldera_Forms_API_Response
      */
     public function get_item(WP_REST_Request $request){
-        if( $request->get_param( 'privacy' ) ){
-            return $this->get_privacy_settings( $request );
-        }
 
+        /*
+        * Comment filtering
+        */
+
+        // if( $request->get_param( 'privacy' ) ){
+        //     var_dump($request);
+        //     return $this->get_privacy_settings( $request );
+        // }
+
+        /*
+        * Last parameter = privacy settings
+        * If true return everything without filtering
+        */
+        
 	    try{
-		    $this->form_object_factory( $request[ 'form_id' ], $request );
+		    $this->form_object_factory( $request[ 'form_id' ], $request, true, true );
 	    }catch ( Exception $e ){
 		    return Caldera_Forms_API_Response_Factory::error_form_not_found();
 	    }
